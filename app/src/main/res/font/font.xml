@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <font android:font="@font/lato_black"
+        tools:targetApi="o" />
+
+    <font android:font="@font/lato_blackitalic"
+        tools:targetApi="o" />
+
+    <font android:font="@font/lato_bold"
+        tools:targetApi="o" />
+
+    <font android:font="@font/lato_bolditalic"
+        tools:targetApi="o" />
+
+    <font android:font="@font/lato_italic"
+        tools:targetApi="o" />
+
+    <font android:font="@font/lato_light"
+        tools:targetApi="o" />
+
+    <font android:font="@font/lato_lightitalic"
+        tools:targetApi="o" />
+
+    <font android:font="@font/lato_regular"
+        tools:targetApi="o" />
+
+    <font android:font="@font/lato_thin"
+        tools:targetApi="o" />
+
+    <font android:font="@font/lato_thinitalic"
+        tools:targetApi="o" />
+
+</font-family>

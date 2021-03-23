@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">NiraniSugar</string>
+    <string name="txt_login">LOGIN</string>
+    <string name="txt_seeall">See all</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_cart">My Cart</string>
+    <string name="nav_orders">My Orders</string>
+    <string name="nav_profile">Profile</string>
+</resources>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".LoginActivity">
+
+    <RelativeLayout
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.haseebazeem.sampleGif.GifImageView
+            android:id="@+id/imgConfirm"
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="@dimen/_200sdp"
+            android:layout_centerHorizontal="true"
+            app:src="@drawable/order_completed"
+            />
+
+        <LinearLayout
+            android:layout_below="@+id/imgConfirm"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Confirmation"
+            android:padding="@dimen/_5sdp"
+            android:textSize="@dimen/_20sdp"
+            android:fontFamily="@font/lato_bold"
+            android:textColor="@color/black"
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="You have successfully completed your payment procedure"
+            android:textSize="@dimen/_12sdp"
+            android:fontFamily="@font/lato_regular"
+            android:textColor="@color/gray"
+            android:gravity="center"
+            android:padding="@dimen/_10sdp"
+            android:layout_below="@+id/imgConfirm"/>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_alignParentBottom="true"
+        android:id="@+id/btnBackToHome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/colorPrimary"
+        android:fontFamily="@font/lato_regular"
+        android:gravity="center"
+        android:padding="@dimen/_12sdp"
+        android:text="BACK TO HOME"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_13sdp" />
+</RelativeLayout>
