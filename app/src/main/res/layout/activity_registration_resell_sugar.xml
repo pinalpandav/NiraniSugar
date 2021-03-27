@@ -108,6 +108,7 @@
                             android:src="@drawable/company_type" />
 
                         <com.skydoves.powerspinner.PowerSpinnerView
+                            android:id="@+id/spCompanyType"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -130,7 +131,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/llName"
+                        android:id="@+id/llCompanyType"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_1sdp"
                         android:layout_marginLeft="@dimen/_20sdp"
@@ -620,8 +621,8 @@
                         android:padding="@dimen/_5sdp"
                         android:src="@drawable/dob" />
 
-                    <EditText
-                        android:id="@+id/edtBirthDate"
+                    <TextView
+                        android:id="@+id/tvBirthDate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
