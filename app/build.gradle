@@ -43,4 +43,5 @@ dependencies {
     implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
     implementation 'com.merhold.extensiblepageindicator:extensiblepageindicator:1.0.1'
     implementation 'com.github.haseebazeem15:gifImageView:1.4'
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
 }

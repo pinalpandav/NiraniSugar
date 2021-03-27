@@ -206,6 +206,7 @@
                 android:textSize="@dimen/_12sdp" />
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/btnLoginWithGoogle"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"
                 android:layout_marginLeft="@dimen/_20sdp"

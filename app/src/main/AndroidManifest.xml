@@ -68,7 +68,6 @@
         <activity
             android:name=".FavoriteActivity"
             android:screenOrientation="portrait" />
-
     </application>
 
 </manifest>
