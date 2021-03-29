@@ -120,12 +120,12 @@
                             android:textSize="@dimen/_13sdp"
                             app:spinner_arrow_gravity="end"
                             app:spinner_arrow_padding="8dp"
-                            app:spinner_divider_color="@color/white"
+                            app:spinner_divider_color="@color/gray"
                             app:spinner_divider_show="true"
                             app:spinner_divider_size="0.4dp"
                             app:spinner_item_array="@array/arrcomapnytype"
                             app:spinner_popup_animation="dropdown"
-                            app:spinner_popup_background="@color/gray"
+                            app:spinner_popup_background="@color/white"
                             app:spinner_popup_elevation="14dp" />
 
                     </LinearLayout>
@@ -251,7 +251,7 @@
                                     android:layout_height="@dimen/_30sdp"
                                     android:layout_gravity="center"
                                     android:padding="@dimen/_5sdp"
-                                    android:src="@drawable/username" />
+                                    android:src="@drawable/state" />
 
                                 <EditText
                                     android:id="@+id/edtState"
@@ -628,7 +628,7 @@
                         android:layout_gravity="center"
                         android:background="@null"
                         android:fontFamily="@font/lato_regular"
-                        android:hint="DD/MM/YYYY"
+                        android:hint="DD MMM YYYY"
                         android:inputType="text"
                         android:singleLine="true"
                         android:textColor="@color/black"

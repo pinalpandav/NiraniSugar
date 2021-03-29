@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
                         finish();
                         return true;
                     case R.id.opFavorite:
+                        mDrawer.closeDrawer(GravityCompat.START);
                         editorSelectedOption.putInt("NO",0);
                         editorSelectedOption.apply();
                         Intent ifav = new Intent(MainActivity.this,FavoriteActivity.class);

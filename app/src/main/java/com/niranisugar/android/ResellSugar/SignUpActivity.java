@@ -1,14 +1,22 @@
-package com.niranisugar.android;
+package com.niranisugar.android.ResellSugar;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.niranisugar.android.R;
 import com.skydoves.powerspinner.PowerSpinnerView;
 
-public class ResellSugarSignUpActivity extends Activity {
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
+public class SignUpActivity extends Activity {
 
     EditText edtCompanyName, edtAddress, edtCity, edtState, edtPincode, edtCompanyEmail, edtTelephoneNo, edtFaxNo, edtGSTNo;
     EditText edtFirstName, edtLastName, edtDesignation, edtMobileNo, edtEmailID;
@@ -18,6 +26,10 @@ public class ResellSugarSignUpActivity extends Activity {
     LinearLayout llCompanyName, llAddress, llCity, llState, llPincode, llCompanyEmail, llTelephoneNo, llFaxNo, llGSTNo;
     LinearLayout llFirstName, llLastName, llDesignation, llMobileNo, llEmailID;
     LinearLayout llCompanyType, llBirthDate;
+
+    ImageView btnBack;
+
+    Calendar myCalendar = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -363,7 +375,13 @@ public class ResellSugarSignUpActivity extends Activity {
         });
 
         tvBirthDate.setOnClickListener(view -> {
+            new DatePickerDialog(SignUpActivity.this, date, myCalendar
+                    .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                    myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+        });
 
+        btnBack.setOnClickListener(view -> {
+            onBackPressed();
         });
     }
 
@@ -406,5 +424,28 @@ public class ResellSugarSignUpActivity extends Activity {
 
         llCompanyType = findViewById(R.id.llCompanyType);
         llBirthDate = findViewById(R.id.llBirthDate);
+
+        btnBack = findViewById(R.id.btnBack);
     }
+
+    DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth) {
+            // TODO Auto-generated method stub
+            myCalendar.set(Calendar.YEAR, year);
+            myCalendar.set(Calendar.MONTH, monthOfYear);
+            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            updateLabel();
+        }
+    };
+
+    private void updateLabel() {
+        String myFormat = "dd MMM yyyy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+        tvBirthDate.setText(sdf.format(myCalendar.getTime()));
+    }
+
 }

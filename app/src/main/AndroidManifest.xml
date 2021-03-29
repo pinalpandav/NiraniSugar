@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NiraniSugar">
         <activity
-            android:name=".ResellSugarSignUpActivity"
+            android:name=".SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -67,6 +67,12 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".FavoriteActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ResellSugar.SignInActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ResellSugar.SignUpActivity"
             android:screenOrientation="portrait" />
     </application>
 

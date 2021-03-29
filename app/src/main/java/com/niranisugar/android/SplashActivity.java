@@ -31,6 +31,7 @@ public class SplashActivity extends Activity{
             public void run() {
                 Intent i = new Intent(SplashActivity.this,WelcomeActivity.class);
                 startActivity(i);
+                overridePendingTransition(0, 0);
                 finish();
             }
         },1500);

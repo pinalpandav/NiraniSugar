@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +23,7 @@ import com.niranisugar.android.Models.CategoriesModel;
 import com.niranisugar.android.Models.ImageSliderModel;
 import com.niranisugar.android.ProductDescriptionActivity;
 import com.niranisugar.android.R;
+import com.niranisugar.android.ResellSugar.SignInActivity;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 
@@ -40,6 +42,8 @@ public class DashBoardFragment extends Fragment {
 
     FeaturedAdapter featuredAdapter;
     BestSellAdapter bestSellAdapter;
+
+    CardView btnResellSugar;
 
     public DashBoardFragment() {
         // Required empty public constructor
@@ -177,6 +181,11 @@ public class DashBoardFragment extends Fragment {
             }
         });
 
+        btnResellSugar.setOnClickListener(view1 -> {
+            Intent i = new Intent(getActivity(), SignInActivity.class);
+            startActivity(i);
+        });
+
         return view;
     }
 
@@ -189,6 +198,8 @@ public class DashBoardFragment extends Fragment {
         btnSeeAllBestSell = view.findViewById(R.id.btnSeeAllBestSell);
         btnSeeAllFeatured = view.findViewById(R.id.btnSeeAllFeatured);
         btnSeeAllCategories = view.findViewById(R.id.btnSeeAllCategories);
+
+        btnResellSugar = view.findViewById(R.id.btnResellSugar);
 
     }
 }

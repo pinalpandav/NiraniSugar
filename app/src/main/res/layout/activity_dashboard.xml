@@ -5,12 +5,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
+        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
 
         <LinearLayout
-            android:background="@color/colorPrimary"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -54,11 +54,13 @@
             </androidx.cardview.widget.CardView>
 
             <ScrollView
+                android:background="@color/white"
                 android:scrollbars="none"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
             <LinearLayout
+                android:paddingBottom="@dimen/_45sdp"
                 android:paddingTop="@dimen/_10sdp"
                 android:background="@color/white"
                 android:orientation="vertical"
@@ -210,5 +212,29 @@
         </LinearLayout>
 
     </RelativeLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_alignParentBottom="true"
+        android:id="@+id/btnResellSugar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+        app:cardBackgroundColor="@color/colorPrimary"
+        app:cardCornerRadius="@dimen/_8sdp"
+        app:cardElevation="@dimen/_8sdp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/lato_bold"
+            android:gravity="center"
+            android:text="Resell Sugar"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_15sdp" />
+
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>
