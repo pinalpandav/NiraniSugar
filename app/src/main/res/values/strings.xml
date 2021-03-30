@@ -15,4 +15,9 @@
         <item> LLP </item>
         <item> Limited </item>
     </string-array>
+    <string-array name="country_array">
+        <item>Grade</item>
+        <item>Zone</item>
+
+    </string-array>
 </resources>

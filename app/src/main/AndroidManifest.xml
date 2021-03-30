@@ -74,6 +74,9 @@
         <activity
             android:name=".ResellSugar.SignUpActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ResellSugar.ResellSugarAvailbleActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

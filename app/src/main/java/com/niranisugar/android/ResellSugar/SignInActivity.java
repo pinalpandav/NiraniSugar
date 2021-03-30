@@ -102,6 +102,11 @@ public class SignInActivity extends Activity {
                 String Code = editText1.getText().toString().trim() + editText2.getText().toString().trim()
                         + editText3.getText().toString().trim() + editText4.getText().toString().trim() +
                         editText5.getText().toString().trim() + editText6.getText().toString().trim();
+
+                Intent i = new Intent(SignInActivity.this,ResellSugarAvailbleActivity.class);
+                startActivity(i);
+                finish();
+
 //                callOTPVerificationAPI(Integer.parseInt(Code));
             }
         });

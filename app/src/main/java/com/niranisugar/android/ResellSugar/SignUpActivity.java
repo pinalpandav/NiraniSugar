@@ -2,12 +2,15 @@ package com.niranisugar.android.ResellSugar;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.cardview.widget.CardView;
 
 import com.niranisugar.android.R;
 import com.skydoves.powerspinner.PowerSpinnerView;
@@ -28,7 +31,7 @@ public class SignUpActivity extends Activity {
     LinearLayout llCompanyType, llBirthDate;
 
     ImageView btnBack;
-
+    CardView btnSignUp;
     Calendar myCalendar = Calendar.getInstance();
 
     @Override
@@ -383,6 +386,12 @@ public class SignUpActivity extends Activity {
         btnBack.setOnClickListener(view -> {
             onBackPressed();
         });
+
+        btnSignUp.setOnClickListener(view -> {
+            Intent i = new Intent(SignUpActivity.this,ResellSugarAvailbleActivity.class);
+            startActivity(i);
+            finish();
+        });
     }
 
     private void findViews() {
@@ -426,6 +435,8 @@ public class SignUpActivity extends Activity {
         llBirthDate = findViewById(R.id.llBirthDate);
 
         btnBack = findViewById(R.id.btnBack);
+
+        btnSignUp = findViewById(R.id.btnSignUp);
     }
 
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
