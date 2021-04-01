@@ -2,7 +2,9 @@ package com.niranisugar.android.ResellSugar;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 
+import com.niranisugar.android.MainActivity;
 import com.niranisugar.android.R;
 import com.skydoves.powerspinner.PowerSpinnerView;
 
@@ -34,10 +37,16 @@ public class SignUpActivity extends Activity {
     CardView btnSignUp;
     Calendar myCalendar = Calendar.getInstance();
 
+    SharedPreferences prefFromWhere;
+    SharedPreferences.Editor editorfromWhere;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration_resell_sugar);
+
+        prefFromWhere = getSharedPreferences("FROMWHERE", Context.MODE_PRIVATE);
+        editorfromWhere = prefFromWhere.edit();
 
         findViews();
 
@@ -388,7 +397,10 @@ public class SignUpActivity extends Activity {
         });
 
         btnSignUp.setOnClickListener(view -> {
-            Intent i = new Intent(SignUpActivity.this,ResellSugarAvailbleActivity.class);
+            editorfromWhere.putBoolean("isFromMain",false);
+            editorfromWhere.apply();
+
+            Intent i = new Intent(SignUpActivity.this, MainActivity.class);
             startActivity(i);
             finish();
         });

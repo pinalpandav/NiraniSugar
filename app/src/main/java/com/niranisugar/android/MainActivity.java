@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -46,12 +47,10 @@ public class MainActivity extends AppCompatActivity {
 
     ImageView imgMenu;
 
-    SharedPreferences prefSelectedOption;
-    SharedPreferences.Editor editorSelectedOption;
-
-
     private DrawerLayout mDrawer;
     private NavigationView nvDrawer;
+
+    public RelativeLayout rlMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
+        rlMenu = findViewById(R.id.rlMenu);
 
         nvDrawer.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -74,36 +74,28 @@ public class MainActivity extends AppCompatActivity {
                         viewPager.setCurrentItem(3);
                         return true;
                     case R.id.opMyCart:
-                        mDrawer.closeDrawer(GravityCompat.START);
-                        viewPager.setCurrentItem(1);
-                        return true;
-                    case R.id.opMyOrder:
-                        mDrawer.closeDrawer(GravityCompat.START);
-                        viewPager.setCurrentItem(2);
-                        return true;
-                    case R.id.opLogout:
-                        editorSelectedOption.putInt("NO",0);
-                        editorSelectedOption.apply();
-                        Intent i = new Intent(MainActivity.this,WelcomeActivity.class);
-                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(i);
-                        finish();
-                        return true;
                     case R.id.opFavorite:
                         mDrawer.closeDrawer(GravityCompat.START);
-                        editorSelectedOption.putInt("NO",0);
-                        editorSelectedOption.apply();
-                        Intent ifav = new Intent(MainActivity.this,FavoriteActivity.class);
-                        startActivity(ifav);
+//                        viewPager.setCurrentItem(1);
                         return true;
+//                        viewPager.setCurrentItem(2);
+                    //                    case R.id.opLogout:
+//                        Intent i = new Intent(MainActivity.this,WelcomeActivity.class);
+//                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                        startActivity(i);
+//                        finish();
+//                        return true;
+//                    case R.id.opFavorite:
+//                        mDrawer.closeDrawer(GravityCompat.START);
+//                       Intent ifav = new Intent(MainActivity.this,FavoriteActivity.class);
+//                        startActivity(ifav);
+//                        return true;
 
                 }
                 return false;
             }
         });
 
-        prefSelectedOption = getSharedPreferences("SELECTEDPAGE",MODE_PRIVATE);
-        editorSelectedOption = prefSelectedOption.edit();
 
         //Initializing viewPager
         viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -152,8 +144,6 @@ public class MainActivity extends AppCompatActivity {
                 bottomNavigationView.getMenu().getItem(position).setChecked(true);
                 prevMenuItem = bottomNavigationView.getMenu().getItem(position);
 
-                editorSelectedOption.putInt("NO",position);
-                editorSelectedOption.apply();
 
             }
 
@@ -163,9 +153,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         setupViewPager(viewPager);
-
-        int pos = prefSelectedOption.getInt("NO",0);
-        viewPager.setCurrentItem(pos);
 
         imgMenu = findViewById(R.id.imgMenu);
         imgMenu.setOnClickListener(new View.OnClickListener() {

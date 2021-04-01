@@ -1,6 +1,7 @@
 package com.niranisugar.android;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,19 +13,19 @@ import androidx.cardview.widget.CardView;
 
 public class SplashActivity extends Activity{
 
-
-    SharedPreferences prefSelectedOption;
-    SharedPreferences.Editor editorSelectedOption;
+    SharedPreferences prefFromWhere;
+    SharedPreferences.Editor editorfromWhere;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        prefSelectedOption = getSharedPreferences("SELECTEDPAGE",MODE_PRIVATE);
-        editorSelectedOption = prefSelectedOption.edit();
-        editorSelectedOption.putInt("NO",0);
-        editorSelectedOption.apply();
+        prefFromWhere = getSharedPreferences("FROMWHERE", Context.MODE_PRIVATE);
+        editorfromWhere = prefFromWhere.edit();
+
+        editorfromWhere.putBoolean("isFromMain",true);
+        editorfromWhere.apply();
 
         new Handler().postDelayed(new Runnable() {
             @Override

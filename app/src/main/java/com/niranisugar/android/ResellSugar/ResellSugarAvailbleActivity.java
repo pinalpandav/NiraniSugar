@@ -56,7 +56,7 @@ public class ResellSugarAvailbleActivity extends Activity {
     String USERID = "";
     //KProgressHUD hud;
 
-    EditText edtGrade;
+//    EditText edtGrade;
     EditText edtSearch;
     TextView tvNoRecordFound;
 
@@ -69,8 +69,9 @@ public class ResellSugarAvailbleActivity extends Activity {
     //TextView tvGoodNight,tvMessage;
 
 
-    Spinner spinCountry;
+//    Spinner spinCountry;
     boolean isGrade = true;
+        CardView btnStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +81,7 @@ public class ResellSugarAvailbleActivity extends Activity {
 
         tvNoRecordFound = findViewById(R.id.NoRecordFound);
 
+        btnStore = findViewById(R.id.btnStore);
 
         btnBack = findViewById(R.id.btnBack);
         listView = findViewById(R.id.listViewResellSugar);
@@ -92,33 +94,33 @@ public class ResellSugarAvailbleActivity extends Activity {
 
 
         edtSearch = findViewById(R.id.edtSearch);
-        edtGrade = findViewById(R.id.edtGradeSearch);
-
-
-        spinCountry = (Spinner) findViewById(R.id.spSelect);//fetch the spinner from layout file
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                R.layout.spinner_item, getResources()
-                .getStringArray(R.array.country_array));//setting the country_array to spinner
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinCountry.setAdapter(adapter);
-
-        spinCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1,
-                                       int position, long id) {
-                if (position == 1) {
-                    edtGrade.setHint("Zone");
-                    isGrade = false;
-                } else {
-                    edtGrade.setHint("Grade");
-                    isGrade = true;
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-            }
-        });
+//        edtGrade = findViewById(R.id.edtGradeSearch);
+//
+//
+//        spinCountry = (Spinner) findViewById(R.id.spSelect);//fetch the spinner from layout file
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+//                R.layout.spinner_item, getResources()
+//                .getStringArray(R.array.country_array));//setting the country_array to spinner
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spinCountry.setAdapter(adapter);
+//
+//        spinCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> arg0, View arg1,
+//                                       int position, long id) {
+//                if (position == 1) {
+//                    edtGrade.setHint("Zone");
+//                    isGrade = false;
+//                } else {
+//                    edtGrade.setHint("Grade");
+//                    isGrade = true;
+//                }
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> arg0) {
+//            }
+//        });
 
 
         edtSearch.addTextChangedListener(new TextWatcher() {
@@ -153,54 +155,54 @@ public class ResellSugarAvailbleActivity extends Activity {
             }
         });
 
-        edtGrade.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (isGrade) {
-                    ArrayList<ResellSugarAvailable> arrFilter = new ArrayList<>();
-                    for (int i = 0; i < arrResellSugarAvailableMainArray.size(); i++) {
-                        if (arrResellSugarAvailableMainArray.get(i).getGrade().toLowerCase().contains(edtGrade.getText().toString().trim().toLowerCase())) {
-                            arrFilter.add(arrResellSugarAvailableMainArray.get(i));
-                        }
-                    }
-                    if (arrFilter.size() == 0) {
-                        tvNoRecordFound.setVisibility(View.VISIBLE);
-                    } else {
-                        tvNoRecordFound.setVisibility(View.GONE);
-                    }
-                    arrResellSugarAvailable.clear();
-                    arrResellSugarAvailable.addAll(arrFilter);
-                    adapterNewData = new AdapterResellSugarAvailble(ResellSugarAvailbleActivity.this, arrResellSugarAvailable, USERID, true);
-                    listView.setAdapter(adapterNewData);
-                } else {
-                    ArrayList<ResellSugarAvailable> arrFilter = new ArrayList<>();
-                    for (int i = 0; i < arrResellSugarAvailableMainArray.size(); i++) {
-                        if (arrResellSugarAvailableMainArray.get(i).getZone().toLowerCase().contains(edtGrade.getText().toString().trim().toLowerCase())) {
-                            arrFilter.add(arrResellSugarAvailableMainArray.get(i));
-                        }
-                    }
-                    if (arrFilter.size() == 0) {
-                        tvNoRecordFound.setVisibility(View.VISIBLE);
-                    } else {
-                        tvNoRecordFound.setVisibility(View.GONE);
-                    }
-                    arrResellSugarAvailable.clear();
-                    arrResellSugarAvailable.addAll(arrFilter);
-                    adapterNewData = new AdapterResellSugarAvailble(ResellSugarAvailbleActivity.this, arrResellSugarAvailable, USERID, true);
-                    listView.setAdapter(adapterNewData);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+//        edtGrade.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                if (isGrade) {
+//                    ArrayList<ResellSugarAvailable> arrFilter = new ArrayList<>();
+//                    for (int i = 0; i < arrResellSugarAvailableMainArray.size(); i++) {
+//                        if (arrResellSugarAvailableMainArray.get(i).getGrade().toLowerCase().contains(edtGrade.getText().toString().trim().toLowerCase())) {
+//                            arrFilter.add(arrResellSugarAvailableMainArray.get(i));
+//                        }
+//                    }
+//                    if (arrFilter.size() == 0) {
+//                        tvNoRecordFound.setVisibility(View.VISIBLE);
+//                    } else {
+//                        tvNoRecordFound.setVisibility(View.GONE);
+//                    }
+//                    arrResellSugarAvailable.clear();
+//                    arrResellSugarAvailable.addAll(arrFilter);
+//                    adapterNewData = new AdapterResellSugarAvailble(ResellSugarAvailbleActivity.this, arrResellSugarAvailable, USERID, true);
+//                    listView.setAdapter(adapterNewData);
+//                } else {
+//                    ArrayList<ResellSugarAvailable> arrFilter = new ArrayList<>();
+//                    for (int i = 0; i < arrResellSugarAvailableMainArray.size(); i++) {
+//                        if (arrResellSugarAvailableMainArray.get(i).getZone().toLowerCase().contains(edtGrade.getText().toString().trim().toLowerCase())) {
+//                            arrFilter.add(arrResellSugarAvailableMainArray.get(i));
+//                        }
+//                    }
+//                    if (arrFilter.size() == 0) {
+//                        tvNoRecordFound.setVisibility(View.VISIBLE);
+//                    } else {
+//                        tvNoRecordFound.setVisibility(View.GONE);
+//                    }
+//                    arrResellSugarAvailable.clear();
+//                    arrResellSugarAvailable.addAll(arrFilter);
+//                    adapterNewData = new AdapterResellSugarAvailble(ResellSugarAvailbleActivity.this, arrResellSugarAvailable, USERID, true);
+//                    listView.setAdapter(adapterNewData);
+//                }
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//            }
+//        });
 
         layout = (PullRefreshLayout) findViewById(R.id.swipeRefreshLayout);
         layout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
@@ -214,6 +216,11 @@ public class ResellSugarAvailbleActivity extends Activity {
 
         adapterNewData = new AdapterResellSugarAvailble(ResellSugarAvailbleActivity.this, arrResellSugarAvailable, USERID, true);
         listView.setAdapter(adapterNewData);
+        listView.setDividerHeight(0);
+
+        btnStore.setOnClickListener(view -> {
+            onBackPressed();
+        });
 
 //        CallAPItoGetServerTime(true);
 
@@ -258,6 +265,7 @@ public class ResellSugarAvailbleActivity extends Activity {
                 }
             }
         });*/
+
     }
 
 }

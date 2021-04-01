@@ -3,6 +3,7 @@ package com.niranisugar.android.ResellSugar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 
+import com.niranisugar.android.MainActivity;
 import com.niranisugar.android.R;
 
 public class SignInActivity extends Activity {
@@ -39,10 +41,18 @@ public class SignInActivity extends Activity {
     TextView ResendOTP;
     boolean Resend = false;
 
+
+    SharedPreferences prefFromWhere;
+    SharedPreferences.Editor editorfromWhere;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_resell_sugar);
+
+        prefFromWhere = getSharedPreferences("FROMWHERE", Context.MODE_PRIVATE);
+        editorfromWhere = prefFromWhere.edit();
+
 
         findViews();
 
@@ -103,7 +113,10 @@ public class SignInActivity extends Activity {
                         + editText3.getText().toString().trim() + editText4.getText().toString().trim() +
                         editText5.getText().toString().trim() + editText6.getText().toString().trim();
 
-                Intent i = new Intent(SignInActivity.this,ResellSugarAvailbleActivity.class);
+                editorfromWhere.putBoolean("isFromMain",false);
+                editorfromWhere.apply();
+
+                Intent i = new Intent(SignInActivity.this, MainActivity.class);
                 startActivity(i);
                 finish();
 

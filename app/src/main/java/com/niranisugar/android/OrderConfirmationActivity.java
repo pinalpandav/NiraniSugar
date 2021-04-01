@@ -15,8 +15,6 @@ import com.niranisugar.android.Fragments.DashBoardFragment;
 public class OrderConfirmationActivity extends Activity {
 
     TextView btnBackToHome;
-    SharedPreferences prefSelectedOption;
-    SharedPreferences.Editor editorSelectedOption;
 
 
     @Override
@@ -26,10 +24,6 @@ public class OrderConfirmationActivity extends Activity {
 
         findViews();
 
-        prefSelectedOption = getSharedPreferences("SELECTEDPAGE",MODE_PRIVATE);
-        editorSelectedOption = prefSelectedOption.edit();
-        editorSelectedOption.putInt("NO",0);
-        editorSelectedOption.apply();
 
         btnBackToHome.setOnClickListener(view -> {
             Intent i = new Intent(OrderConfirmationActivity.this, MainActivity.class);
