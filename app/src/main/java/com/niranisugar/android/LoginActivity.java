@@ -2,6 +2,7 @@ package com.niranisugar.android;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +20,16 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.kaopiz.kprogresshud.KProgressHUD;
+import com.niranisugar.android.API.ApiClient;
+import com.niranisugar.android.API.ApiInterface;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends Activity {
 
@@ -29,11 +40,23 @@ public class LoginActivity extends Activity {
     CardView btnLogin;
     CardView btnLoginWithGoogle;
     public static final int RC_SIGN_IN = 100;
+    KProgressHUD hud;
+    ApiInterface apiService;
+    SharedPreferences prefUserData;
+    SharedPreferences.Editor editorUserData;
+    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        hud = KProgressHUD.create(this)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setCancellable(false)
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f);
 
         findViews();
 
@@ -74,7 +97,12 @@ public class LoginActivity extends Activity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                if(Validate()){
+                    String email = edtEmail.getText().toString().trim();
+                    String password = edtPassword.getText().toString().trim();
+                    LoginAPI(email,password);
+                }
+
             }
         });
 
@@ -135,6 +163,8 @@ public class LoginActivity extends Activity {
     }
 
     private void findViews() {
+        prefUserData = getSharedPreferences("USER_DATA",MODE_PRIVATE);
+        editorUserData = prefUserData.edit();
 
         edtEmail = findViewById(R.id.edtEmail);
         edtPassword = findViewById(R.id.edtPassword);
@@ -148,5 +178,62 @@ public class LoginActivity extends Activity {
 
         btnLoginWithGoogle = findViewById(R.id.btnLoginWithGoogle);
 
+    }
+
+    private void LoginAPI(String email, String password) {
+        hud.show();
+        apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<String> callCard = apiService.Login(email,password);
+        callCard.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                hud.dismiss();
+                if (response.code() == 200) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.body());
+                        if(jsonObject.has("status")) {
+                            if (jsonObject.getString("status").equals("1")) {
+                                Toast.makeText(LoginActivity.this, jsonObject.getJSONObject("message").toString(), Toast.LENGTH_SHORT).show();
+
+                                editorUserData.putString("user_data", jsonObject.toString());
+                                editorUserData.putString("token", jsonObject.getString("access_token"));
+                                editorUserData.apply();
+
+                                Intent i = new Intent(LoginActivity.this,MainActivity.class);
+                                startActivity(i);
+                                finish();
+                            }
+                        }else{
+                            if(jsonObject.has("errors")){
+                                Toast.makeText(LoginActivity.this, jsonObject.getJSONObject("errors").toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    } catch (JSONException e) {
+                        hud.dismiss();
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                hud.dismiss();
+            }
+        });
+    }
+
+    private boolean Validate() {
+        if(edtEmail.getText().toString().trim().isEmpty()){
+            edtEmail.setError("Please enter Email");
+            return false;
+        }else if(!edtEmail.getText().toString().trim().matches(emailPattern)){
+            edtEmail.setError("Please enter valid Email");
+            return false;
+        }else if(edtPassword.getText().toString().trim().isEmpty()){
+            edtPassword.setError("Please enter Password");
+            return false;
+        }else{
+            return true;
+        }
     }
 }

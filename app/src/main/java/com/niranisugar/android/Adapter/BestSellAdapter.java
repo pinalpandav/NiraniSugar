@@ -19,7 +19,7 @@ public class BestSellAdapter extends RecyclerView.Adapter<BestSellAdapter.ViewHo
     private List<CategoriesModel> data_list;
     public int selectedPosition = -1;
     String categories_title;
-    private FeaturedAllAdapter.ClickListener clickListener;
+    private ClickListener clickListener;
 
 
     public BestSellAdapter(Context context, String str, List<CategoriesModel> data_list, String categories_title) {
@@ -73,11 +73,11 @@ public class BestSellAdapter extends RecyclerView.Adapter<BestSellAdapter.ViewHo
         }
     }
 
-    public void setOnItemClickListener(FeaturedAllAdapter.ClickListener clickListener) {
+    public void setOnItemClickListener(ClickListener clickListener) {
         this.clickListener = clickListener;
     }
 
-    public interface clickListener {
+    public interface ClickListener {
         void onItemClick(int position, View v);
         void onItemLongClick(int position, View v);
     }

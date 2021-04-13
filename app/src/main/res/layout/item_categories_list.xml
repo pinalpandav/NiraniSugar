@@ -6,7 +6,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="@dimen/_100sdp"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="5dp"
         app:cardElevation="2dp"
@@ -27,7 +27,7 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:id="@+id/categories_data_image"
+                    android:id="@+id/ivCategory"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:src="@drawable/cloths" />
@@ -49,7 +49,7 @@
                     android:gravity="center">
 
                     <TextView
-                        android:id="@+id/categories_data_title"
+                        android:id="@+id/tvCategoryName"
                         android:layout_width="match_parent"
                         android:textStyle="bold"
                         android:gravity="bottom|left"
@@ -69,6 +69,7 @@
                     android:gravity="center">
 
                     <TextView
+                        android:id="@+id/tvslug"
                         android:layout_width="match_parent"
                         android:gravity="top|left"
                         android:layout_height="match_parent"

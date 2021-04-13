@@ -12,25 +12,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.niranisugar.android.Adapter.FeaturedAllAdapter;
 import com.niranisugar.android.Models.CategoriesModel;
+import com.niranisugar.android.Models.ProductGridModel;
 
 import java.util.ArrayList;
 
 public class FavoriteActivity extends Activity {
 
     RecyclerView rvCategories, rvFeatured, rvBestSell;
-    public ArrayList<CategoriesModel> arrCategories = new ArrayList<>();
+    public ArrayList<ProductGridModel> arrCategories = new ArrayList<>();
     TextView tvTitle;
 
     ImageView btnBack;
+    ImageView imgNotification;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
 
-        CategoriesModel obj1 = new CategoriesModel();
-        obj1.setCategories_title("Sugar");
-        obj1.setCategories_image("Sugar");
+        ProductGridModel obj1 = new ProductGridModel();
+        obj1.setProduct_name("Sugar");
+        obj1.setProduct_price(50.00);
         arrCategories.add(obj1);
         arrCategories.add(obj1);
         arrCategories.add(obj1);
@@ -70,23 +72,6 @@ public class FavoriteActivity extends Activity {
             }
         });
 
-//        rvFeatured.setHasFixedSize(true);
-//        rvFeatured.setLayoutFrozen(true);
-//        LinearLayoutManager llmF = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
-//        rvFeatured.setLayoutManager(llmF);
-//
-//        // TODO: 05-01-2021 Set data in adapter
-//        FeaturedAdapter featuredAdapter = new FeaturedAdapter(this, "Fragment", arrCategories, "");
-//        rvFeatured.setAdapter(featuredAdapter);
-//
-//        rvBestSell.setHasFixedSize(true);
-//        rvBestSell.setLayoutFrozen(true);
-//        LinearLayoutManager llmBS = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
-//        rvBestSell.setLayoutManager(llmBS);
-//
-//        // TODO: 05-01-2021 Set data in adapter
-//        FeaturedAdapter bestSellAdapter = new FeaturedAdapter(this, "Fragment", arrCategories, "");
-//        rvBestSell.setAdapter(bestSellAdapter);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,14 +80,16 @@ public class FavoriteActivity extends Activity {
             }
         });
 
+        imgNotification.setOnClickListener(view -> {
+            Intent i = new Intent(FavoriteActivity.this,NotificationActivity.class);
+            startActivity(i);
+        });
+
     }
 
     private void findViews() {
-
-//        rvCategories = findViewById(R.id.rvCategories);
         rvFeatured = findViewById(R.id.rvFeaturedAll);
-//        rvBestSell = findViewById(R.id.rvBestSell);
-
+        imgNotification = findViewById(R.id.imgNotification);
         tvTitle = findViewById(R.id.tvTitle);
         btnBack = findViewById(R.id.btnBack);
     }

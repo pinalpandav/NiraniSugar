@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 import com.niranisugar.android.Models.CategoriesModel;
 import com.niranisugar.android.R;
 
@@ -44,7 +46,12 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        CategoriesModel CategoriesModel = data_list.get(position);
+        CategoriesModel categoriesModel = data_list.get(position);
+        holder.tvCategoryName.setText(categoriesModel.getCategories_title());
+        if(categoriesModel.getCategories_title().length() > 18){
+            holder.tvCategoryName.setTextSize(12);
+        }
+        Glide.with(context).load(categoriesModel.getCategories_image()).into(holder.ivCategory);
 
 
     }
@@ -55,10 +62,12 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
-
+        ImageView ivCategory;
+        TextView tvCategoryName;
         public ViewHolder(View itemView) {
             super(itemView);
+            ivCategory = itemView.findViewById(R.id.ivCategory);
+            tvCategoryName = itemView.findViewById(R.id.tvCategoryName);
         }
     }
 }

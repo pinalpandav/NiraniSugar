@@ -4,11 +4,14 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.niranisugar.android.Models.CategoriesModel;
+import com.niranisugar.android.Models.ProductGridModel;
 import com.niranisugar.android.R;
 
 import java.util.List;
@@ -16,12 +19,12 @@ import java.util.List;
 public class FeaturedAllAdapter extends RecyclerView.Adapter<FeaturedAllAdapter.ViewHolder> {
 
     private Context context;
-    private List<CategoriesModel> data_list;
+    private List<ProductGridModel> data_list;
     public int selectedPosition = -1;
     String categories_title;
     private ClickListener clickListener;
 
-    public FeaturedAllAdapter(Context context, String str, List<CategoriesModel> data_list, String categories_title) {
+    public FeaturedAllAdapter(Context context, String str, List<ProductGridModel> data_list, String categories_title) {
         this.context = context;
         this.data_list = data_list;
         this.categories_title = categories_title;
@@ -40,7 +43,9 @@ public class FeaturedAllAdapter extends RecyclerView.Adapter<FeaturedAllAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        CategoriesModel CategoriesModel = data_list.get(position);
+        ProductGridModel productGridModel = data_list.get(position);
+        holder.tvProductName.setText(productGridModel.getProduct_name());
+        holder.tvProductPrice.setText("\u20B9 " + String.format("%.2f",productGridModel.getProduct_price()));
 
 
     }
@@ -52,11 +57,16 @@ public class FeaturedAllAdapter extends RecyclerView.Adapter<FeaturedAllAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener  {
 
+        ImageView ivThumbnail;
+        TextView tvProductPrice,tvProductName;
 
         public ViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
+            ivThumbnail = itemView.findViewById(R.id.ivThumbnail);
+            tvProductPrice = itemView.findViewById(R.id.tvPrice);
+                tvProductName = itemView.findViewById(R.id.tvProductName);
         }
 
         @Override

@@ -58,7 +58,7 @@ public class ImageSliderAdapter extends SliderViewAdapter<ImageSliderAdapter.Sli
         //  set image from url.
         Glide.with(viewHolder.itemView)
                 .load(sliderItem.getImageUrl())
-                .fitCenter()
+                .centerCrop()
                 .into(viewHolder.imageViewBackground);
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {

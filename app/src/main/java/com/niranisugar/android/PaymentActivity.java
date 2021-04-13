@@ -23,6 +23,7 @@ public class PaymentActivity extends AppCompatActivity {
 
     TextView btnCheckOut;
     ImageView btnBack;
+    ImageView imgNotification;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,12 +56,18 @@ public class PaymentActivity extends AppCompatActivity {
             finish();
         });
 
+        imgNotification.setOnClickListener(view -> {
+            Intent i = new Intent(PaymentActivity.this,NotificationActivity.class);
+            startActivity(i);
+        });
+
     }
 
     private void findViews() {
         mViewPager = (ViewPager) findViewById(R.id.vpPaymentCard);
         btnCheckOut = findViewById(R.id.btnCheckOut);
         btnBack = findViewById(R.id.btnBack);
+        imgNotification = findViewById(R.id.imgNotification);
     }
 
 

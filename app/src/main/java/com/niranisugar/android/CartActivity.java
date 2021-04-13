@@ -24,6 +24,7 @@ public class CartActivity extends Activity {
     TextView btnContinue;
 
     ImageView btnBack;
+    ImageView imgNotification;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,11 +79,17 @@ public class CartActivity extends Activity {
             }
         });
 
+        imgNotification.setOnClickListener(view -> {
+            Intent i = new Intent(CartActivity.this,NotificationActivity.class);
+            startActivity(i);
+        });
+
     }
 
     private void findViews() {
         rvCart = findViewById(R.id.rvCart);
         btnContinue = findViewById(R.id.btnContinue);
         btnBack = findViewById(R.id.btnBack);
+        imgNotification = findViewById(R.id.imgNotification);
     }
 }

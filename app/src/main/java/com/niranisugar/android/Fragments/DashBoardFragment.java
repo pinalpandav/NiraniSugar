@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
@@ -19,6 +20,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.baoyz.widget.PullRefreshLayout;
+import com.kaopiz.kprogresshud.KProgressHUD;
+import com.niranisugar.android.API.ApiClient;
+import com.niranisugar.android.API.ApiInterface;
 import com.niranisugar.android.Adapter.AdapterResellSugarAvailble;
 import com.niranisugar.android.Adapter.BestSellAdapter;
 import com.niranisugar.android.Adapter.CategoriesAdapter;
@@ -27,9 +31,11 @@ import com.niranisugar.android.Adapter.FeaturedAllAdapter;
 import com.niranisugar.android.Adapter.ImageSliderAdapter;
 import com.niranisugar.android.CategoryListActivity;
 import com.niranisugar.android.FeaturedActivity;
+import com.niranisugar.android.LoginActivity;
 import com.niranisugar.android.MainActivity;
 import com.niranisugar.android.Models.CategoriesModel;
 import com.niranisugar.android.Models.ImageSliderModel;
+import com.niranisugar.android.Models.ProductGridModel;
 import com.niranisugar.android.Models.ResellSugarAvailable;
 import com.niranisugar.android.ProductDescriptionActivity;
 import com.niranisugar.android.R;
@@ -38,13 +44,22 @@ import com.niranisugar.android.ResellSugar.SignInActivity;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class DashBoardFragment extends Fragment {
 
     RecyclerView rvCategories,rvFeatured,rvBestSell;
     public ArrayList<CategoriesModel> arrCategories = new ArrayList<>();
+    public ArrayList<ProductGridModel> arrFeatured = new ArrayList<>();
     public ArrayList<ImageSliderModel> arrSliderImage = new ArrayList<>();
 
     public SliderView svImage;
@@ -63,7 +78,8 @@ public class DashBoardFragment extends Fragment {
     SharedPreferences.Editor editorfromWhere;
 
     MainActivity mainActivity;
-
+    KProgressHUD hud;
+    ApiInterface apiService;
 
     //=-----------------------------ResellSugarAvaible--------------------------------
 
@@ -99,23 +115,14 @@ public class DashBoardFragment extends Fragment {
 
         mainActivity = (MainActivity) getActivity();
 
-        CategoriesModel obj1 = new CategoriesModel();
-        obj1.setCategories_title("Sugar");
-        obj1.setCategories_image("Sugar");
-        arrCategories.add(obj1);
-        arrCategories.add(obj1);
-        arrCategories.add(obj1);
-        arrCategories.add(obj1);
-        arrCategories.add(obj1);
-        arrCategories.add(obj1);
-        arrCategories.add(obj1);
-        arrCategories.add(obj1);
-        arrCategories.add(obj1);
-        arrCategories.add(obj1);
-        arrCategories.add(obj1);
-        arrCategories.add(obj1);
-        arrCategories.add(obj1);
-        arrCategories.add(obj1);
+        hud = KProgressHUD.create(mainActivity)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setCancellable(false)
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f);
+
+        GetCategory();
+
 
         findViews(view);
 
@@ -124,18 +131,13 @@ public class DashBoardFragment extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
         rvCategories.setLayoutManager(llm);
 
-        // TODO: 05-01-2021 Set data in adapter
-        CategoriesAdapter categoriesAdapter = new CategoriesAdapter(getActivity(), "Fragment", arrCategories, "");
-        rvCategories.setAdapter(categoriesAdapter);
+
 
         rvFeatured.setHasFixedSize(true);
         rvFeatured.setLayoutFrozen(true);
         LinearLayoutManager llmF = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
         rvFeatured.setLayoutManager(llmF);
 
-        // TODO: 05-01-2021 Set data in adapter
-        featuredAdapter = new FeaturedAdapter(getActivity(), "Fragment", arrCategories, "");
-        rvFeatured.setAdapter(featuredAdapter);
 
         rvBestSell.setHasFixedSize(true);
         rvBestSell.setLayoutFrozen(true);
@@ -147,24 +149,8 @@ public class DashBoardFragment extends Fragment {
         rvBestSell.setAdapter(bestSellAdapter);
 
 
-        ImageSliderModel modelSliderHometop1 = new ImageSliderModel();
-        modelSliderHometop1.setImageUrl("https://3.bp.blogspot.com/-Wxr9iElgMHc/XvEleXaZOTI/AAAAAAAAAQY/WcZotaCBqdYQzBX5HBjTr1R3NkiKtS1sgCLcBGAsYHQ/s1600/lion.png");
-        arrSliderImage.add(modelSliderHometop1);
 
-        ImageSliderModel modelSliderHometop2 = new ImageSliderModel();
-        modelSliderHometop2.setImageUrl("https://3.bp.blogspot.com/-B9_SO1pZJTw/XvElYpggK0I/AAAAAAAAAQQ/ZKP7yjF-IOAnukbbt-4LfvXk99ekuGGbQCLcBGAsYHQ/s1600/elephant.jpg");
-        arrSliderImage.add(modelSliderHometop2);
 
-        ImageSliderModel modelSliderHometop3 = new ImageSliderModel();
-        modelSliderHometop3.setImageUrl("https://4.bp.blogspot.com/-8U-yeWQyT-g/XvEld2GJKQI/AAAAAAAAAQU/EaqkAB8h8g0kDDDowQ3-2MxvHU1R7S6_QCLcBGAsYHQ/s1600/hands.jpg");
-        arrSliderImage.add(modelSliderHometop3);
-
-        ImageSliderAdapter imageSliderAdapter = new ImageSliderAdapter(getActivity(), arrSliderImage);
-        svImage.setSliderAdapter(imageSliderAdapter);
-        svImage.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
-        svImage.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
-        svImage.setScrollTimeInSec(2); //set scroll delay in seconds :
-        svImage.startAutoCycle();
 
         btnSeeAllCategories.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,23 +178,13 @@ public class DashBoardFragment extends Fragment {
             }
         });
 
-        featuredAdapter.setOnItemClickListener(new FeaturedAllAdapter.ClickListener() {
-            @Override
-            public void onItemClick(int position, View v) {
-                Intent i = new Intent(getActivity(), ProductDescriptionActivity.class);
-                startActivity(i);
-            }
 
-            @Override
-            public void onItemLongClick(int position, View v) {
-
-            }
-        });
 
         bestSellAdapter.setOnItemClickListener(new FeaturedAllAdapter.ClickListener() {
             @Override
             public void onItemClick(int position, View v) {
                 Intent i = new Intent(getActivity(), ProductDescriptionActivity.class);
+                i.putExtra("id",22);
                 startActivity(i);
             }
 
@@ -264,6 +240,198 @@ public class DashBoardFragment extends Fragment {
 
         return view;
     }
+
+    private void GetSliderImages() {
+
+        apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<String> callCard = apiService.GetSliderImages();
+        callCard.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.code() == 200) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.body());
+                        if(jsonObject.has("status")) {
+                            if (jsonObject.getString("status").equals("1")) {
+                                JSONArray jsonArray = jsonObject.getJSONArray("data");
+                                arrSliderImage.clear();
+                                for(int i = 0;i<jsonArray.length();i++){
+                                    JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                                    ImageSliderModel modelSliderHometop1 = new ImageSliderModel();
+                                    modelSliderHometop1.setImageUrl(jsonObject1.getString("photo"));
+                                    arrSliderImage.add(modelSliderHometop1);
+
+                                }
+
+                                ImageSliderAdapter imageSliderAdapter = new ImageSliderAdapter(getActivity(), arrSliderImage);
+                                svImage.setSliderAdapter(imageSliderAdapter);
+                                svImage.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
+                                svImage.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
+                                svImage.setScrollTimeInSec(2); //set scroll delay in seconds :
+                                svImage.startAutoCycle();
+
+                                // TODO: 05-01-2021 Set data in adapter
+                                CategoriesAdapter categoriesAdapter = new CategoriesAdapter(getActivity(), "Fragment", arrCategories, "");
+                                rvCategories.setAdapter(categoriesAdapter);
+
+                                GetFeatured();
+                            }
+                        }else{
+                            hud.dismiss();
+                            if(jsonObject.has("errors")){
+                                Toast.makeText(mainActivity, jsonObject.getJSONObject("errors").toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    } catch (JSONException e) {
+                        hud.dismiss();
+                        e.printStackTrace();
+                    }
+                }else{
+                    hud.dismiss();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                hud.dismiss();
+            }
+        });
+    }
+
+    private void GetCategory() {
+        hud.show();
+        apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<String> callCard = apiService.GetCategory();
+        callCard.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.code() == 200) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.body());
+                        if(jsonObject.has("status")) {
+                            if (jsonObject.getString("status").equals("1")) {
+                                JSONArray jsonArray = jsonObject.getJSONArray("data");
+                                int length = 10;
+                                if(jsonArray.length() < 10){
+                                    length = jsonArray.length();
+                                }
+                                arrCategories.clear();
+                                for(int i = 0;i<length;i++){
+                                    JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                                    CategoriesModel categoriesModel = new CategoriesModel();
+                                    categoriesModel.setCategories_id(jsonObject1.getInt("id"));
+                                    categoriesModel.setCategories_image(jsonObject1.getString("image"));
+                                    categoriesModel.setCategories_photo(jsonObject1.getString("photo"));
+                                    categoriesModel.setCategories_title(jsonObject1.getString("name"));
+                                    categoriesModel.setIsFeatured(jsonObject1.getInt("is_featured"));
+                                    categoriesModel.setCategories_slug(jsonObject1.getString("slug"));
+                                    arrCategories.add(categoriesModel);
+                                }
+
+                                // TODO: 05-01-2021 Set data in adapter
+                                CategoriesAdapter categoriesAdapter = new CategoriesAdapter(getActivity(), "Fragment", arrCategories, "");
+                                rvCategories.setAdapter(categoriesAdapter);
+
+                                GetSliderImages();
+                            }
+                        }else{
+                            if(jsonObject.has("errors")){
+                                Toast.makeText(mainActivity, jsonObject.getJSONObject("errors").toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    } catch (JSONException e) {
+                        hud.dismiss();
+                        e.printStackTrace();
+                    }
+                }else{
+                    hud.dismiss();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                hud.dismiss();
+            }
+        });
+    }
+
+    private void GetFeatured() {
+
+        apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<String> callCard = apiService.GetFeatures();
+        callCard.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                hud.dismiss();
+                if (response.code() == 200) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.body());
+                        if(jsonObject.has("status")) {
+                            if (jsonObject.getString("status").equals("1")) {
+                                JSONArray jsonArray = jsonObject.getJSONArray("data");
+                                int length = 10;
+                                if(jsonArray.length() < 10){
+                                    length = jsonArray.length();
+                                }
+                                for(int i = 0;i<length;i++){
+                                    JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                                    ProductGridModel productGridModel = new ProductGridModel();
+                                    productGridModel.setId(jsonObject1.getInt("id"));
+                                    productGridModel.setProduct_attributes(jsonObject1.getString("attributes"));
+                                    productGridModel.setProduct_discount_date(jsonObject1.getString("discount_date"));
+                                    productGridModel.setProduct_name(jsonObject1.getString("name"));
+                                    productGridModel.setProduct_prev_price(jsonObject1.getString("previous_price"));
+                                    productGridModel.setProduct_size(jsonObject1.getString("size"));
+                                    productGridModel.setProduct_size_price(jsonObject1.getString("size_price"));
+                                    productGridModel.setProduct_slug(jsonObject1.getString("slug"));
+                                    productGridModel.setProduct_thumbnail(jsonObject1.getString("thumbnail"));
+                                    productGridModel.setProduct_price(jsonObject1.getDouble("price"));
+                                    arrFeatured.add(productGridModel);
+                                }
+
+                                // TODO: 05-01-2021 Set data in adapter
+                                featuredAdapter = new FeaturedAdapter(getActivity(), "Fragment", arrFeatured, "");
+                                rvFeatured.setAdapter(featuredAdapter);
+
+                                setFeaturedAdapterClickEvent();
+                            }
+                        }else{
+                            if(jsonObject.has("errors")){
+                                Toast.makeText(mainActivity, jsonObject.getJSONObject("errors").toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    } catch (JSONException e) {
+                        hud.dismiss();
+                        e.printStackTrace();
+                    }
+                }else{
+                    hud.dismiss();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                hud.dismiss();
+            }
+        });
+    }
+
+    private void setFeaturedAdapterClickEvent() {
+        featuredAdapter.setOnItemClickListener(new FeaturedAllAdapter.ClickListener() {
+            @Override
+            public void onItemClick(int position, View v) {
+                Intent i = new Intent(getActivity(), ProductDescriptionActivity.class);
+                i.putExtra("id",arrFeatured.get(position).getId());
+                startActivity(i);
+            }
+
+            @Override
+            public void onItemLongClick(int position, View v) {
+
+            }
+        });
+    }
+
 
     private void findViews(View view) {
         rvCategories = view.findViewById(R.id.rvCategories);

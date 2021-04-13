@@ -4,28 +4,25 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.niranisugar.android.Models.CategoriesModel;
-import com.niranisugar.android.Models.ProductGridModel;
 import com.niranisugar.android.R;
 
 import java.util.List;
 
-public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.ViewHolder> {
+public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ViewHolder> {
 
     private Context context;
-    private List<ProductGridModel> data_list;
+    private List<CategoriesModel> data_list;
     public int selectedPosition = -1;
     String categories_title;
     private ClickListener clickListener;
 
 
-    public FeaturedAdapter(Context context, String str, List<ProductGridModel> data_list, String categories_title) {
+    public NotificationAdapter(Context context, String str, List<CategoriesModel> data_list, String categories_title) {
         this.context = context;
         this.data_list = data_list;
         this.categories_title = categories_title;
@@ -33,6 +30,7 @@ public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.ViewHo
 
     @NonNull
     @Override
+
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View itemView = null;
@@ -44,9 +42,8 @@ public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        ProductGridModel productGridModel = data_list.get(position);
-        holder.tvProductName.setText(productGridModel.getProduct_name());
-        holder.tvProductPrice.setText("\u20B9 " + String.format("%.2f",productGridModel.getProduct_price()));
+        CategoriesModel CategoriesModel = data_list.get(position);
+
 
     }
 
@@ -57,16 +54,11 @@ public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener  {
 
-        ImageView ivThumbnail;
-        TextView tvProductPrice,tvProductName;
 
         public ViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
-            ivThumbnail = itemView.findViewById(R.id.ivThumbnail);
-            tvProductPrice = itemView.findViewById(R.id.tvPrice);
-            tvProductName = itemView.findViewById(R.id.tvProductName);
         }
 
         @Override
@@ -90,3 +82,4 @@ public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.ViewHo
         void onItemLongClick(int position, View v);
     }
 }
+

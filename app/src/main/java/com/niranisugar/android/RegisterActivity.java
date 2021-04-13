@@ -8,8 +8,21 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
+
+import com.kaopiz.kprogresshud.KProgressHUD;
+import com.niranisugar.android.API.ApiClient;
+import com.niranisugar.android.API.ApiInterface;
+import com.niranisugar.android.API.Constant;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RegisterActivity extends Activity {
 
@@ -20,10 +33,20 @@ public class RegisterActivity extends Activity {
     TextView btnLoginNow;
     CardView btnRegister;
 
+    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    KProgressHUD hud;
+    ApiInterface apiService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        hud = KProgressHUD.create(this)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setCancellable(false)
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f);
 
         findViews();
 
@@ -133,9 +156,96 @@ public class RegisterActivity extends Activity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(RegisterActivity.this,MainActivity.class));
+
+                if(Validate()){
+                    String fullName = edtFullName.getText().toString().trim();
+                    String email = edtEmail.getText().toString().trim();
+                    String phoneNo = edtPhone.getText().toString().trim();
+                    String address = edtAddress.getText().toString().trim();
+                    String password = edtPassword.getText().toString().trim();
+                    String confirmpassword = edtConfirmPassword.getText().toString().trim();
+
+                    RegisterAPI(fullName,email,phoneNo,address,password,confirmpassword);
+                }
+
             }
         });
+    }
+
+    private void RegisterAPI(String fullName, String email, String phoneNo, String address, String password,String confirmpassword) {
+        hud.show();
+        apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<String> callCard = apiService.Register(fullName,email,phoneNo,address,password,confirmpassword);
+        callCard.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                hud.dismiss();
+                if (response.code() == 200) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.body());
+                        if(jsonObject.has("status")) {
+                            if (jsonObject.getString("status").equals("0")) {
+                                Toast.makeText(RegisterActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                                Intent i = new Intent(RegisterActivity.this,LoginActivity.class);
+                                startActivity(i);
+                                finish();
+                            }
+                        }else{
+                            if(jsonObject.has("errors")){
+                                Toast.makeText(RegisterActivity.this, jsonObject.getJSONObject("errors").getJSONArray("email").toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    } catch (JSONException e) {
+                        hud.dismiss();
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                hud.dismiss();
+            }
+        });
+    }
+
+    private boolean Validate() {
+        if(edtFullName.getText().toString().trim().isEmpty()){
+            edtFullName.setError("Please enter Full Name");
+            return false;
+        }else if(edtEmail.getText().toString().trim().isEmpty()){
+            edtEmail.setError("Please enter Email");
+            return false;
+        }else if(!edtEmail.getText().toString().trim().matches(emailPattern)){
+            edtEmail.setError("Please enter valid Email");
+            return false;
+        }else if(edtPhone.getText().toString().trim().isEmpty()){
+            edtPhone.setError("Please enter Phone No");
+            return false;
+        }else if(edtPhone.getText().toString().trim().length() != 10){
+            edtPhone.setError("Please enter valid Phone No");
+            return false;
+        }else if(edtAddress.getText().toString().trim().isEmpty()){
+            edtAddress.setError("Please enter Address");
+            return false;
+        }else if(edtPassword.getText().toString().trim().isEmpty()){
+            edtPassword.setError("Please enter Password");
+            return false;
+        }else if(edtPassword.getText().toString().trim().length() < 6){
+            edtPassword.setError("Password must be at least 6 Characters");
+            return false;
+        }else if(edtConfirmPassword.getText().toString().trim().isEmpty()){
+            edtConfirmPassword.setError("Please enter Confirm Password");
+            return false;
+        }else if(edtConfirmPassword.getText().toString().trim().length() < 6){
+            edtConfirmPassword.setError("Confirm Password must be at least 6 Characters");
+            return false;
+        }else if(!edtPassword.getText().toString().trim().equals(edtConfirmPassword.getText().toString().trim())){
+            Toast.makeText(this, "Password does not match!", Toast.LENGTH_SHORT).show();
+            return false;
+        }else{
+            return true;
+        }
     }
 
     private void findViews() {

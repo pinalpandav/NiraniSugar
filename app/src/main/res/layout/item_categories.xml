@@ -22,13 +22,14 @@
             android:layout_height="match_parent">
         <ImageView
             android:alpha="0.7"
-            android:id="@+id/iv_auto_image_slider"
+            android:id="@+id/ivCategory"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:src="@drawable/cloths"/>
 
             <TextView
+                android:id="@+id/tvCategoryName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"

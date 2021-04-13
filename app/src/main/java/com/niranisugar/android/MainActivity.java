@@ -1,17 +1,17 @@
 package com.niranisugar.android;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -26,6 +26,7 @@ import com.niranisugar.android.Fragments.CartFragment;
 import com.niranisugar.android.Fragments.DashBoardFragment;
 import com.niranisugar.android.Fragments.MyOrderFragment;
 import com.niranisugar.android.Fragments.ProfileFragment;
+import com.niranisugar.android.ResellSugar.SignInActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +53,10 @@ public class MainActivity extends AppCompatActivity {
 
     public RelativeLayout rlMenu;
 
+    ImageView imgLoginLogout;
+    SharedPreferences prefUserData;
+    public String access_token;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
         rlMenu = findViewById(R.id.rlMenu);
+        prefUserData = getSharedPreferences("USER_DATA", MODE_PRIVATE);
+        imgLoginLogout = findViewById(R.id.imgLoginLogout);
 
         nvDrawer.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -101,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.viewpager);
 
         //Initializing the bottomNavigationView
-        bottomNavigationView = (BottomNavigationView)findViewById(R.id.navigation);
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -135,12 +142,10 @@ public class MainActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 if (prevMenuItem != null) {
                     prevMenuItem.setChecked(false);
-                }
-                else
-                {
+                } else {
                     bottomNavigationView.getMenu().getItem(0).setChecked(false);
                 }
-                Log.d("page",""+position);
+                Log.d("page", "" + position);
                 bottomNavigationView.getMenu().getItem(position).setChecked(true);
                 prevMenuItem = bottomNavigationView.getMenu().getItem(position);
 
@@ -161,12 +166,50 @@ public class MainActivity extends AppCompatActivity {
                 mDrawer.openDrawer(GravityCompat.START);
             }
         });
+
+        access_token = prefUserData.getString("token", "");
+        if (access_token.isEmpty()) {
+            imgLoginLogout.setTag("Login");
+            imgLoginLogout.setImageResource(R.drawable.login);
+        } else {
+            imgLoginLogout.setTag("Logout");
+            imgLoginLogout.setImageResource(R.drawable.logout);
+        }
+
+        imgLoginLogout.setOnClickListener(view -> {
+            if (imgLoginLogout.getTag().equals("Login")) {
+                Intent i = new Intent(MainActivity.this, LoginActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
+                finish();
+            } else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("Are you sure you want to Logout?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Intent i = new Intent(MainActivity.this, WelcomeActivity.class);
+                                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(i);
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+        });
+
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        dashBoardFragment=new DashBoardFragment();
-        cartFragment=new CartFragment();
+        dashBoardFragment = new DashBoardFragment();
+        cartFragment = new CartFragment();
         myOrderFragment = new MyOrderFragment();
         profileFragment = new ProfileFragment();
         adapter.addFragment(dashBoardFragment);
@@ -182,6 +225,7 @@ public class MainActivity extends AppCompatActivity {
         public ViewPagerAdapter(FragmentManager manager) {
             super(manager);
         }
+
         @Override
         public Fragment getItem(int position) {
             return mFragmentList.get(position);

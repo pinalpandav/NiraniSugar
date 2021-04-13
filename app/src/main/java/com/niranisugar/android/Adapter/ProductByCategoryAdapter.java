@@ -10,22 +10,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.niranisugar.android.Models.CategoriesModel;
+import com.niranisugar.android.Models.ProductDetails;
 import com.niranisugar.android.Models.ProductGridModel;
 import com.niranisugar.android.R;
 
 import java.util.List;
 
-public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.ViewHolder> {
+public class ProductByCategoryAdapter extends RecyclerView.Adapter<ProductByCategoryAdapter.ViewHolder> {
 
     private Context context;
-    private List<ProductGridModel> data_list;
+    private List<ProductDetails> data_list;
     public int selectedPosition = -1;
     String categories_title;
     private ClickListener clickListener;
 
-
-    public FeaturedAdapter(Context context, String str, List<ProductGridModel> data_list, String categories_title) {
+    public ProductByCategoryAdapter(Context context, String str, List<ProductDetails> data_list, String categories_title) {
         this.context = context;
         this.data_list = data_list;
         this.categories_title = categories_title;
@@ -36,7 +35,7 @@ public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.ViewHo
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View itemView = null;
-        itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_featured, parent, false);
+        itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_featured_all, parent, false);
         return new ViewHolder(itemView);
 
     }
@@ -44,9 +43,10 @@ public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        ProductGridModel productGridModel = data_list.get(position);
-        holder.tvProductName.setText(productGridModel.getProduct_name());
-        holder.tvProductPrice.setText("\u20B9 " + String.format("%.2f",productGridModel.getProduct_price()));
+        ProductDetails productGridModel = data_list.get(position);
+        holder.tvProductName.setText(productGridModel.getName());
+        holder.tvProductPrice.setText("\u20B9 " + String.format("%.2f",productGridModel.getPrice()));
+
 
     }
 

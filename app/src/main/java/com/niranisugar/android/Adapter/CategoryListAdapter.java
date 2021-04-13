@@ -4,10 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.niranisugar.android.Models.CategoriesModel;
 import com.niranisugar.android.R;
 
@@ -40,7 +43,10 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        CategoriesModel CategoriesModel = data_list.get(position);
+        CategoriesModel categoriesModel = data_list.get(position);
+        holder.tvCategoryName.setText(categoriesModel.getCategories_title());
+        Glide.with(context).load(categoriesModel.getCategories_image()).into(holder.ivCategory);
+        holder.tvSlug.setText(categoriesModel.getCategories_slug());
 
 
     }
@@ -51,12 +57,17 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener  {
-
+        ImageView ivCategory;
+        TextView tvCategoryName;
+        TextView tvSlug;
 
         public ViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
+            ivCategory = itemView.findViewById(R.id.ivCategory);
+            tvCategoryName = itemView.findViewById(R.id.tvCategoryName);
+            tvSlug = itemView.findViewById(R.id.tvslug);
         }
 
         @Override

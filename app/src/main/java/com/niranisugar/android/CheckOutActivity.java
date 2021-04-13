@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,6 +24,7 @@ public class CheckOutActivity extends Activity {
     TextView btnBuy;
 
     ImageView btnBack;
+    ImageView imgNotification;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,11 +79,17 @@ public class CheckOutActivity extends Activity {
             }
         });
 
+        imgNotification.setOnClickListener(view -> {
+            Intent i = new Intent(CheckOutActivity.this,NotificationActivity.class);
+            startActivity(i);
+        });
+
     }
 
     private void findViews() {
         rvCheckOut = findViewById(R.id.rvCheckOut);
         btnBuy = findViewById(R.id.btnBuy);
         btnBack = findViewById(R.id.btnBack);
+        imgNotification = findViewById(R.id.imgNotification);
     }
 }
