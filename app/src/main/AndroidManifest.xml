@@ -5,13 +5,14 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:usesCleartextTraffic="true"
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.NiraniSugar">
+        android:theme="@style/Theme.NiraniSugar"
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".SplashActivity"
             android:screenOrientation="portrait">
@@ -78,6 +79,27 @@
         <activity
             android:name=".ResellSugar.ResellSugarAvailbleActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".AboutUsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PrivacyPolicyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TermsAndConditionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".OrderDetailsActivity"
+            android:screenOrientation="portrait" />
+
+        <meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_test_xgoHDeHS4L7Gbk"
+            />
+        <meta-data
+            android:name="com.google.android.gms.wallet.api.enabled"
+            android:value="true" />
+
     </application>
 
 </manifest>

@@ -23,7 +23,7 @@ public interface ApiInterface {
                           @Part("password") String password,
                           @Part("password_confirmation") String confirmationpassword);
 
-    @POST("profile")
+    @GET("profile")
     Call<String> Profile(@Header("apiToken") String access_token);
 
     @GET("category")
@@ -62,6 +62,35 @@ public interface ApiInterface {
                             @Part("landmark") String landmark);
 
 
+    @Multipart
+    @POST("profile/update")
+    Call<String> UpdateProfile(@Header("apiToken") String token,
+                               @Part("name") String name,
+                               @Part("email") String email,
+                               @Part("city") String city,
+                               @Part("address") String address,
+                               @Part("phone") String phone,
+                               @Part("gender") String gender);
+
+    @Multipart
+    @POST("autosearch/product")
+    Call<String> GetSearchProduct(@Part("slug") String slug);
+
+
+
+    @Multipart
+    @POST("order/create")
+    Call<String> AddOrder(@Header("apiToken") String token,
+                               @Part("product_ids") String product_ids,
+                               @Part("product_qty") String product_qty,
+                               @Part("product_price") String product_price,
+                               @Part("user_id") String user_id,
+                               @Part("address_id") int address_id,
+                               @Part("order_note") String order_note);
+
+
+    @GET("orders")
+    Call<String> GetOrders(@Header("apiToken") String token);
 
 
 }

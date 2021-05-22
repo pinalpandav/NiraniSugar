@@ -193,7 +193,7 @@ public class LoginActivity extends Activity {
                         JSONObject jsonObject = new JSONObject(response.body());
                         if(jsonObject.has("status")) {
                             if (jsonObject.getString("status").equals("1")) {
-                                Toast.makeText(LoginActivity.this, jsonObject.getJSONObject("message").toString(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, jsonObject.getString("message").toString(), Toast.LENGTH_SHORT).show();
 
                                 editorUserData.putString("user_data", jsonObject.toString());
                                 editorUserData.putString("token", jsonObject.getString("access_token"));

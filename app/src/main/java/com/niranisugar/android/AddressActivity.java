@@ -16,10 +16,8 @@ import com.kaopiz.kprogresshud.KProgressHUD;
 import com.niranisugar.android.API.ApiClient;
 import com.niranisugar.android.API.ApiInterface;
 import com.niranisugar.android.Adapter.AddressAdapter;
-import com.niranisugar.android.Adapter.CartAdapter;
-import com.niranisugar.android.Adapter.FeaturedAllAdapter;
-import com.niranisugar.android.Models.CartModel;
-import com.niranisugar.android.Models.ProductGridModel;
+import com.niranisugar.android.Models.AddOrder;
+import com.niranisugar.android.Models.AddressModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,9 +33,9 @@ public class AddressActivity extends Activity {
 
     RecyclerView rvAddress;
     AddressAdapter addressAdapter;
-    ArrayList<CartModel> arrAddress = new ArrayList<>();
+    ArrayList<AddressModel> arrAddress = new ArrayList<>();
 
-    TextView btnAddAddress,btnContinueToPayment;
+    TextView btnAddAddress, btnContinueToPayment;
 
     ImageView btnBack;
     ImageView imgNotification;
@@ -45,6 +43,9 @@ public class AddressActivity extends Activity {
     ApiInterface apiService;
     String access_token;
     SharedPreferences prefUserData;
+
+    AddOrder addOrder;
+    TextView tvNoDataFound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,45 +63,50 @@ public class AddressActivity extends Activity {
 
         findViews();
 
-        arrAddress.add(new CartModel("T-Shirt","Women","2","https://bit.ly/37Rn50u"));
-        arrAddress.add(new CartModel("T-Shirt","Women","5","https://bit.ly/37Rn50u"));
-        arrAddress.add(new CartModel("T-Shirt","Women","1","https://bit.ly/37Rn50u"));
-
         rvAddress.setHasFixedSize(true);
         rvAddress.setLayoutFrozen(true);
         LinearLayoutManager llmF = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         rvAddress.setLayoutManager(llmF);
 
+        addOrder = (AddOrder) getIntent().getParcelableExtra("array");
 
-         btnAddAddress.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View view) {
-                    Intent i = new Intent(AddressActivity.this,AddAddressActivity.class);
-                    startActivity(i);
-             }
-         });
 
-         btnContinueToPayment.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View view) {
-                 Intent i = new Intent(AddressActivity.this,PaymentActivity.class);
-                 startActivity(i);
-             }
-         });
+        btnAddAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(AddressActivity.this, AddAddressActivity.class);
+                startActivity(i);
+            }
+        });
 
-         btnBack.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View view) {
-                 onBackPressed();
-             }
-         });
+        btnContinueToPayment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addOrder.setAddressID(addressAdapter.data_list.get(addressAdapter.lastCheckedPosition).getId());
+                addOrder.setAddress(addressAdapter.data_list.get(addressAdapter.lastCheckedPosition).getAddress());
+                Intent i = new Intent(AddressActivity.this, PaymentActivity.class);
+                i.putExtra("array", addOrder);
+                startActivity(i);
+            }
+        });
 
-         imgNotification.setOnClickListener(view -> {
-             Intent i = new Intent(AddressActivity.this,NotificationActivity.class);
-             startActivity(i);
-         });
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
-         GetAddress();
+        imgNotification.setOnClickListener(view -> {
+            Intent i = new Intent(AddressActivity.this, NotificationActivity.class);
+            startActivity(i);
+        });
+
+        if(access_token.equals("")){
+            Toast.makeText(this, "Please login to the application", Toast.LENGTH_SHORT).show();
+        }else{
+            GetAddress();
+        }
 
     }
 
@@ -110,6 +116,7 @@ public class AddressActivity extends Activity {
         btnContinueToPayment = findViewById(R.id.btnContinueToPayment);
         imgNotification = findViewById(R.id.imgNotification);
         btnBack = findViewById(R.id.btnBack);
+        tvNoDataFound = findViewById(R.id.tvNoDataFound);
     }
 
     private void GetAddress() {
@@ -123,14 +130,35 @@ public class AddressActivity extends Activity {
                 if (response.code() == 200) {
                     try {
                         JSONObject jsonObject = new JSONObject(response.body());
-                        if(jsonObject.has("status")) {
+                        if (jsonObject.has("status")) {
                             if (jsonObject.getString("status").equals("1")) {
+                                arrAddress.clear();
                                 JSONArray jsonArray = jsonObject.getJSONArray("data");
-
-                                for(int i = 0;i<jsonArray.length();i++){
+                                for (int i = 0; i < jsonArray.length(); i++) {
                                     JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                                    ProductGridModel productGridModel = new ProductGridModel();
-//                                    arrFeatured.add(productGridModel);
+                                    AddressModel addressModel = new AddressModel();
+                                    addressModel.setId(jsonObject1.getInt("id"));
+                                    addressModel.setName(jsonObject1.getString("name"));
+                                    addressModel.setAddress(jsonObject1.getString("address"));
+                                    addressModel.setCity(jsonObject1.getString("city"));
+                                    addressModel.setCountry(jsonObject1.getString("country"));
+                                    addressModel.setLandmark(jsonObject1.getString("landmark"));
+                                    addressModel.setPhoneno(jsonObject1.getString("phone_no"));
+                                    addressModel.setState(jsonObject1.getString("state"));
+                                    addressModel.setPincode(jsonObject1.getString("postal_code"));
+                                    arrAddress.add(addressModel);
+                                }
+
+                                if(arrAddress.size() == 0){
+                                    tvNoDataFound.setVisibility(View.VISIBLE);
+                                    btnContinueToPayment.setBackgroundColor(getResources().getColor(R.color.lightgray));
+                                    btnContinueToPayment.setTextColor(getResources().getColor(R.color.black));
+                                    btnContinueToPayment.setEnabled(false);
+                                }else{
+                                    tvNoDataFound.setVisibility(View.GONE);
+                                    btnContinueToPayment.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                                    btnContinueToPayment.setTextColor(getResources().getColor(R.color.white));
+                                    btnContinueToPayment.setEnabled(true);
                                 }
 
                                 // TODO: 05-01-2021 Set data in adapter
@@ -150,8 +178,8 @@ public class AddressActivity extends Activity {
                                 });
 
                             }
-                        }else{
-                            if(jsonObject.has("errors")){
+                        } else {
+                            if (jsonObject.has("errors")) {
                                 Toast.makeText(AddressActivity.this, jsonObject.getJSONObject("errors").toString(), Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -159,7 +187,7 @@ public class AddressActivity extends Activity {
                         hud.dismiss();
                         e.printStackTrace();
                     }
-                }else{
+                } else {
                     hud.dismiss();
                 }
             }
@@ -171,4 +199,13 @@ public class AddressActivity extends Activity {
         });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(access_token.equals("")){
+            Toast.makeText(this, "Please login to the application", Toast.LENGTH_SHORT).show();
+        }else{
+            GetAddress();
+        }
+    }
 }

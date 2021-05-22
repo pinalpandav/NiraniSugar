@@ -3,9 +3,17 @@ package com.niranisugar.android.Models;
 public class AddressModel {
 
     int id;
-    String name,address,city,state,country,phoneno,landmark;
+    String name,address,city,state,country,phoneno,landmark,pincode;
 
     public AddressModel() {
+    }
+
+    public String getPincode() {
+        return pincode;
+    }
+
+    public void setPincode(String pincode) {
+        this.pincode = pincode;
     }
 
     public int getId() {

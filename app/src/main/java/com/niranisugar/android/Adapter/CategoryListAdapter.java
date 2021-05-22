@@ -22,7 +22,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
     private List<CategoriesModel> data_list;
     public int selectedPosition = -1;
     String categories_title;
-    private ClickListener clickListener;
+        private ClickListener clickListener;
 
     public CategoryListAdapter(Context context, String str, List<CategoriesModel> data_list, String categories_title) {
         this.context = context;

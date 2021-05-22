@@ -63,7 +63,6 @@ public class NotificationActivity extends Activity {
         LinearLayoutManager llmF = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         rvNotification.setLayoutManager(llmF);
 
-
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

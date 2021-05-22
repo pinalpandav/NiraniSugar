@@ -6,7 +6,8 @@
     <string name="nav_cart">My Cart</string>
     <string name="nav_orders">My Orders</string>
     <string name="nav_profile">Profile</string>
-    
+    <string name="add_address">  </string>
+
     <string-array name="arrcomapnytype">
         <item> Corporate Pvt Ltd </item>
         <item> Partnership Firm </item>

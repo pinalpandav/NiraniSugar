@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/colorPrimary"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/black_alpha_20">
+    android:layout_height="@dimen/_150sdp">
 
 
     <LinearLayout
-        android:background="@color/colorPrimary"
+        android:layout_centerInParent="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -14,111 +14,35 @@
         <ImageView
             android:layout_gravity="center"
             android:layout_width="@dimen/_50sdp"
-            android:layout_height="@dimen/_150sdp"
+            android:layout_height="@dimen/_50sdp"
             android:src="@mipmap/ic_launcher"/>
 
-        <!--<TextView
-            android:id="@+id/opHome"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/lato_regular"
-            android:padding="@dimen/_10sdp"
-            android:text="Home"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_15sdp" />
-
-        <LinearLayout
-            android:background="@color/gray"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_1sdp"/>
 
         <TextView
-            android:id="@+id/opProfile"
+            android:id="@+id/tvName"
+            android:layout_marginTop="@dimen/_10sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:fontFamily="@font/lato_regular"
-            android:padding="@dimen/_10sdp"
-            android:text="Profile"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_15sdp" />
-
-        <LinearLayout
-            android:background="@color/gray"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_1sdp"/>
+            android:text="Name : "
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="@dimen/_5sdp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/lato_bold"
+            android:textSize="@dimen/_14sdp"/>
 
 
         <TextView
-            android:id="@+id/opMyCart"
+            android:id="@+id/tvEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:fontFamily="@font/lato_regular"
-            android:padding="@dimen/_10sdp"
-            android:text="My Cart"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_15sdp" />
-
-        <LinearLayout
-            android:background="@color/gray"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_1sdp"/>
-
-
-        <TextView
-            android:id="@+id/opFavorite"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:fontFamily="@font/lato_regular"
-            android:padding="@dimen/_10sdp"
-            android:text="Favorite"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_15sdp" />
-
-        <LinearLayout
-            android:background="@color/gray"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_1sdp"/>
-
-
-        <TextView
-            android:id="@+id/opMyOrder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:fontFamily="@font/lato_regular"
-            android:padding="@dimen/_10sdp"
-            android:text="My Order"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_15sdp" />
-
-        <LinearLayout
-            android:background="@color/gray"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_1sdp"/>
-
-
-        <TextView
-            android:id="@+id/opLogout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:fontFamily="@font/lato_regular"
-            android:padding="@dimen/_10sdp"
-            android:text="Logout"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_15sdp" />
-
-        <LinearLayout
-            android:background="@color/gray"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_1sdp"/>-->
-
-
-
+            android:text="Email : "
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="@dimen/_5sdp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/lato_bold"
+            android:textSize="@dimen/_14sdp"/>
     </LinearLayout>
 
     <ImageView

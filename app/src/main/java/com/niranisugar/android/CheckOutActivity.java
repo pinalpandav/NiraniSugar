@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.niranisugar.android.Adapter.CartAdapter;
+import com.niranisugar.android.Models.AddOrder;
 import com.niranisugar.android.Models.CartModel;
 
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class CheckOutActivity extends Activity {
 
     ImageView btnBack;
     ImageView imgNotification;
+    AddOrder addOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,8 @@ public class CheckOutActivity extends Activity {
         setContentView(R.layout.activity_checkout);
 
         findViews();
+
+        addOrder = (AddOrder) getIntent().getParcelableExtra("array");
 
         arrCart.add(new CartModel("T-Shirt","Women","2","https://bit.ly/37Rn50u"));
         arrCart.add(new CartModel("T-Shirt","Women","5","https://bit.ly/37Rn50u"));
@@ -49,7 +53,7 @@ public class CheckOutActivity extends Activity {
         rvCheckOut.setLayoutManager(llmF);
 
         // TODO: 05-01-2021 Set data in adapter
-        cartAdapter = new CartAdapter(this, "Fragment", arrCart, "");
+      /*  cartAdapter = new CartAdapter(this, "Fragment", arrCart, "");
         rvCheckOut.setAdapter(cartAdapter);
 
         cartAdapter.setOnItemClickListener(new CartAdapter.ClickListener() {
@@ -62,22 +66,14 @@ public class CheckOutActivity extends Activity {
             public void onItemLongClick(int position, View v) {
 
             }
+        });*/
+
+        btnBuy.setOnClickListener(view -> {
+            Intent i = new Intent(CheckOutActivity.this,OrderConfirmationActivity.class);
+            startActivity(i);
         });
 
-        btnBuy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(CheckOutActivity.this,OrderConfirmationActivity.class);
-                startActivity(i);
-            }
-        });
-
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        btnBack.setOnClickListener(view -> onBackPressed());
 
         imgNotification.setOnClickListener(view -> {
             Intent i = new Intent(CheckOutActivity.this,NotificationActivity.class);

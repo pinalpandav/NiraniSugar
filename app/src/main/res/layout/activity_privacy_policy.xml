@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".LoginActivity">
+
+    <RelativeLayout
+        android:id="@+id/rlMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:paddingStart="@dimen/_10sdp"
+        android:paddingTop="@dimen/_5sdp"
+        android:paddingRight="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_5sdp">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="@dimen/_28sdp"
+            android:layout_height="@dimen/_28sdp"
+            android:padding="@dimen/_5sdp"
+            android:src="@drawable/back_white"
+            app:tint="@color/white" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_toRightOf="@+id/btnBack"
+            android:fontFamily="@font/lato_bold"
+            android:text="Privacy Policy"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp" />
+
+
+
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/imgFilter"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_alignParentEnd="true"
+            android:layout_toLeftOf="@id/imgCart"
+            android:padding="@dimen/_5sdp"
+            android:src="@drawable/filter_white"
+            app:tint="@color/white" />
+
+        <ImageView
+            android:id="@+id/imgCart"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_alignParentEnd="true"
+            android:padding="@dimen/_5sdp"
+            android:src="@drawable/cart_white"
+            android:visibility="gone"
+            app:tint="@color/white" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:paddingBottom="@dimen/_10sdp"
+        android:layout_below="@+id/rlMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="        John Wiley &amp; Sons, Inc. and its subsidiary and affiliate companies (collectively, “Wiley,” “we,” “us” or “our”) recognize the importance of protecting the personal information collected from users in the operation of its services and taking reasonable steps to maintain the security, integrity and privacy of any information in accordance with this Privacy Policy. By submitting your information to Wiley you consent to the practices described in this policy. If you are less than 18 years of age, then you must first seek the consent of your parent or guardian prior to submitting any personal information.
+This Privacy Policy describes how Wiley collects and uses the personal information you provide to Wiley. It also describes the choices available to you regarding our use of your personal information and how you can access and update this information.\n\n
+        Wiley may receive information about you if you use any of the websites we operate or the other services we provide. We also work closely with third parties (including, for example, business partners and sub-contractors in technical, payment and delivery services; advertising networks; data and analytics providers; academic institutions; journal owners, societies and similar organizations; search information providers, and credit reference agencies) from whom Wiley may receive information about you. \n\n
+        We will use appropriate physical, technical and administrative safeguards to protect your data.  Access to your personal data will be restricted to only those who need to know that information and required to perform their job function.  In addition, we train our employees about the importance of maintaining the confidentiality and security of your information. \n\n
+        You should be aware that identifiable personal information — such as your name or e-mail address — that you voluntarily disclose and that is accessible to other users (e.g. on social media, forums, bulletin boards or in chat areas) could be collected and disclosed by others. Wiley cannot take any responsibility for such collection and disclosure."
+        android:fontFamily="@font/lato_regular"
+        android:textColor="@color/black"
+        android:padding="@dimen/_5sdp"
+        android:layout_margin="@dimen/_5sdp"/>
+
+    </ScrollView>
+
+</RelativeLayout>

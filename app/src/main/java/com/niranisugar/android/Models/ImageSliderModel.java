@@ -1,6 +1,12 @@
 package com.niranisugar.android.Models;
 
 public class ImageSliderModel {
+    public ImageSliderModel(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public ImageSliderModel() {
+    }
 
     private String imageUrl;
 

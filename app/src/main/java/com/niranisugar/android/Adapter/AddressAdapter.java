@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.niranisugar.android.Models.AddressModel;
 import com.niranisugar.android.Models.CartModel;
 import com.niranisugar.android.R;
 
@@ -19,12 +20,12 @@ import java.util.List;
 public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHolder> {
 
     private Context context;
-    private List<CartModel> data_list;
+    public List<AddressModel> data_list;
     String categories_title;
     private ClickListener clickListener;
-    private int lastCheckedPosition = 0;
+    public int lastCheckedPosition = 0;
 
-    public AddressAdapter(Context context, String str, List<CartModel> data_list, String categories_title) {
+    public AddressAdapter(Context context, String str, List<AddressModel> data_list, String categories_title) {
         this.context = context;
         this.data_list = data_list;
         this.categories_title = categories_title;
@@ -43,8 +44,10 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        CartModel CategoriesModel = data_list.get(position);
+        AddressModel addressModel = data_list.get(position);
         holder.rbAddress.setChecked(position == lastCheckedPosition);
+        holder.tvAddress.setText(addressModel.getAddress());
+        holder.tvCity.setText(addressModel.getCity());
     }
 
     @Override
@@ -55,10 +58,13 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener  {
 
         RadioButton rbAddress;
+        TextView tvAddress,tvCity;
 
         public ViewHolder(View itemView) {
             super(itemView);
             rbAddress = itemView.findViewById(R.id.rbAddress);
+            tvAddress = itemView.findViewById(R.id.tvAddress);
+            tvCity = itemView.findViewById(R.id.tvCity);
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
             rbAddress.setOnClickListener(new View.OnClickListener() {

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".LoginActivity">
+
+    <RelativeLayout
+        android:id="@+id/rlMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:paddingStart="@dimen/_10sdp"
+        android:paddingTop="@dimen/_5sdp"
+        android:paddingRight="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_5sdp">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="@dimen/_28sdp"
+            android:layout_height="@dimen/_28sdp"
+            android:padding="@dimen/_5sdp"
+            android:src="@drawable/back_white"
+            app:tint="@color/white" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_toRightOf="@+id/btnBack"
+            android:fontFamily="@font/lato_bold"
+            android:text="About Us"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp" />
+
+
+        <ImageView
+            android:id="@+id/imgFilter"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_alignParentEnd="true"
+            android:layout_toLeftOf="@id/imgCart"
+            android:padding="@dimen/_5sdp"
+            android:src="@drawable/filter_white"
+            android:visibility="gone"
+            app:tint="@color/white" />
+
+        <ImageView
+            android:id="@+id/imgCart"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_alignParentEnd="true"
+            android:padding="@dimen/_5sdp"
+            android:src="@drawable/cart_white"
+            android:visibility="gone"
+            app:tint="@color/white" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rlMenu">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:fontFamily="@font/lato_regular"
+                android:padding="@dimen/_5sdp"
+                android:text="              Established in 1995, MRN group is a successful business conglomerate with a headquartered presence at Mudhol, Karnataka. Under the visionary of Founder Mr. Murugesh R. Nirani, the group has been striking the balance between reimagining &amp; advancing industrialization and improving people's lives not only across Karnataka state but various parts of India. At MRN Group, we constantly work to make the future a reality by staying connected to our roots of rich resources and combining integrity, creativity, and smart innovation with the utmost consideration for our people, their families, the local communities around us, our valued customers and the country at large."
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:fontFamily="@font/lato_regular"
+                android:padding="@dimen/_5sdp"
+                android:text="              We have been a prominent contributor to one of the largest agro-commodity businesses of India through our sugar manufacturing business with a capacity of 70,000 TCD. Proudly standing as the top players of the Indian Sugar Industry, MRN Group stands distinct from its competitors by redefining its presence in the sugar industry. MRN Group has transfigured itself towards a smarter future that will provide the valuable raw materials our modern society will be needing right from now. Sustainability has been a major driver in our business where we advance that contributes to a thriving business planet. In support, we have prioritised sustainable goals to ensure our business is environmentally, socially and economically sustainable. And we have taken the foundation step by aligning our business goals with India's renewable energy mission."
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:fontFamily="@font/lato_regular"
+                android:padding="@dimen/_5sdp"
+                android:text="              In renewable energy, we exist with a Co Gen Plant of 260 MW, ENA, and proudly stand as the largest manufacturer of Ethanol in India with a capacity of 850 KLPD. With our vigorous action plan and strong support to the National Biofuel Policy-2018 that envisages an indicative target of 20% blending of ethanol in petrol by 2030, we have already seen ourselves expanding in ethanol to 2400 KLPD by 2022 and scaling taller heights gradually. Our beam of focus remains on indulging ourselves in propelling and creating sustainable value while India is in the midst of a major transformative shift in its energy sector to eradicate energy poverty in the country and develop a next generation infrastructure that is an enabler of energy availability, accessibility, affordability and sustainability to combating climate change as a responsible global citizen and a top priority to mitigating the global uncertainties. As we look out to the next decade, we will continue to unearth the potential beneath our feet, indicating ourselves as the leading company in bioenergy both locally and globally. MRN Group also has its wings spread in the cement industry, oil &amp; gas sector &amp; education field."
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+    </ScrollView>
+</RelativeLayout>

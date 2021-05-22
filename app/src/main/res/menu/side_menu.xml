@@ -4,7 +4,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/opHome"
-            android:icon="@drawable/nav_home"
+            android:icon="@drawable/home_dr"
             android:title="Home" />
         <item
             android:id="@+id/opProfile"
@@ -13,19 +13,22 @@
         <item
             android:id="@+id/opMyCart"
             android:icon="@drawable/cart"
-            android:title="My Purchase Order" />
+            android:title="My Cart" />
         <item
-            android:id="@+id/opFavorite"
+            android:id="@+id/opPrivacyPolicy"
+            android:icon="@drawable/privacy"
+            android:title="Privacy Policy" />
+        <item
+            android:id="@+id/opTermsAndCondition"
+            android:icon="@drawable/terms"
+            android:title="Terms and Condition" />
+        <item
+            android:id="@+id/opAboutUs"
+            android:icon="@drawable/about_us"
+            android:title="About Us" />
+        <item
+            android:id="@+id/opLogout"
             android:icon="@drawable/favorite"
-            android:title="Wallet Statement" />
-<!--        <item-->
-<!--            android:id="@+id/opMyOrder"-->
-<!--            android:icon="@drawable/nav_order"-->
-<!--            android:title="My Order" />-->
-<!--        <item-->
-<!--            android:id="@+id/opLogout"-->
-<!--            android:icon="@drawable/logout"-->
-<!--            android:title="Logout" />-->
-
+            android:title="Login" />
     </group>
 </menu>

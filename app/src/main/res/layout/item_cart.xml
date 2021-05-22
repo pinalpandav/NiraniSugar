@@ -31,6 +31,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
+                    android:id="@+id/imgProduct"
                     android:layout_gravity="center"
                     android:layout_width="@dimen/_80sdp"
                     android:src="@drawable/cloths"
@@ -44,6 +45,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
+                        android:id="@+id/tvProductName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
@@ -54,6 +56,7 @@
                         android:paddingBottom="@dimen/_5sdp"/>
 
                     <TextView
+                        android:id="@+id/tvCategoryName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/gray"
@@ -63,6 +66,7 @@
                         android:paddingLeft="@dimen/_8sdp"/>
 
                     <TextView
+                        android:id="@+id/tvPrice"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorPrimary"

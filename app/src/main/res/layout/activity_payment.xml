@@ -74,10 +74,51 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:fontFamily="@font/lato_bold"
+            android:text="Payment Method : "
+            android:padding="@dimen/_5sdp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/_12sdp" />
+
+
+
+        <RadioGroup
+            android:checkedButton="@id/cashOnDevlivery"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+
+            <RadioButton
+                android:id="@+id/onlinePayment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Online Payment"
+                android:fontFamily="@font/lato_regular"
+                android:textSize="@dimen/_10sdp"/>
+
+
+            <RadioButton
+                android:id="@+id/cashOnDevlivery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cash On Delivery"
+                android:fontFamily="@font/lato_regular"
+                android:textSize="@dimen/_10sdp"/>
+
+        </RadioGroup>
+
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/vpPaymentCard"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_180sdp"
+            android:visibility="gone"
             android:clipToPadding="false"
             android:overScrollMode="never"
             android:paddingEnd="@dimen/_10sdp"
@@ -88,6 +129,7 @@
 
         <com.merhold.extensiblepageindicator.ExtensiblePageIndicator
             android:id="@+id/vpIndicator"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:indicatorRadius="5dp"
@@ -119,6 +161,7 @@
                     android:padding="@dimen/_5sdp"/>
 
                 <TextView
+                    android:id="@+id/tvSubTotal"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -152,7 +195,7 @@
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="10  %"
+                    android:text="--"
                     android:textColor="@color/black"
                     android:gravity="end"
                     android:fontFamily="@font/lato_regular"
@@ -182,7 +225,7 @@
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="100  ₹"
+                    android:text="00  ₹"
                     android:textColor="@color/black"
                     android:gravity="end"
                     android:fontFamily="@font/lato_regular"
@@ -219,6 +262,7 @@
                     android:padding="@dimen/_5sdp"/>
 
                 <TextView
+                    android:id="@+id/tvTotal"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -246,7 +290,7 @@
         android:orientation="horizontal"
         android:weightSum="2">
 
-        <TextView
+        <!--<TextView
             android:id="@+id/btnAddCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -257,7 +301,7 @@
             android:padding="@dimen/_12sdp"
             android:text="ADD CARD"
             android:textColor="@color/black"
-            android:textSize="@dimen/_12sdp" />
+            android:textSize="@dimen/_12sdp" />-->
 
         <TextView
             android:id="@+id/btnCheckOut"
@@ -268,7 +312,7 @@
             android:fontFamily="@font/lato_regular"
             android:gravity="center"
             android:padding="@dimen/_12sdp"
-            android:text="CHECKOUT"
+            android:text="BUY NOW"
             android:textColor="@color/white"
             android:textSize="@dimen/_12sdp" />
 

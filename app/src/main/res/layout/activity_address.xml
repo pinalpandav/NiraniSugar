@@ -76,6 +76,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
+    <TextView
+        android:gravity="center"
+        android:visibility="gone"
+        android:id="@+id/tvNoDataFound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/lato_italic"
+        android:text="No Address Found! \n\n Please add Address"
+        android:textColor="@color/colorPrimary"
+        android:layout_centerInParent="true"
+        android:textSize="@dimen/_14sdp" />
+
 
     <LinearLayout
         android:id="@+id/bottomLayout"
@@ -97,6 +109,11 @@
             android:text="ADD ADDRESS"
             android:textColor="@color/black"
             android:textSize="@dimen/_12sdp" />
+
+        <TextView
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"/>
 
         <TextView
             android:id="@+id/btnContinueToPayment"

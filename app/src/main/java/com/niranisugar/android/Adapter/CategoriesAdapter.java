@@ -26,6 +26,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
     private List<CategoriesModel> data_list;
     public int selectedPosition = -1;
     String categories_title;
+    private ClickListener clickListener;
 
     public CategoriesAdapter(Context context, String str, List<CategoriesModel> data_list, String categories_title) {
         this.context = context;
@@ -61,13 +62,35 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
         return data_list.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         ImageView ivCategory;
         TextView tvCategoryName;
         public ViewHolder(View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
             ivCategory = itemView.findViewById(R.id.ivCategory);
             tvCategoryName = itemView.findViewById(R.id.tvCategoryName);
         }
+
+        @Override
+        public void onClick(View v) {
+            clickListener.onItemClick(getAdapterPosition(), v);
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            clickListener.onItemLongClick(getAdapterPosition(), v);
+            return false;
+        }
+    }
+
+    public void setOnItemClickListener(ClickListener clickListener) {
+        this.clickListener = clickListener;
+    }
+
+    public interface ClickListener {
+        void onItemClick(int position, View v);
+        void onItemLongClick(int position, View v);
     }
 }

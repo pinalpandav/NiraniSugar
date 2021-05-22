@@ -76,6 +76,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tvNoDataFound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cart is Empty"
+        android:fontFamily="@font/lato_bolditalic"
+        android:textSize="@dimen/_15sdp"
+        android:textColor="@color/colorPrimary"
+        android:layout_centerInParent="true"/>
 
     <TextView
         android:layout_alignParentBottom="true"

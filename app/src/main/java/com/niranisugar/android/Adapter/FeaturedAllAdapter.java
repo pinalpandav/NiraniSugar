@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.niranisugar.android.Models.CategoriesModel;
 import com.niranisugar.android.Models.ProductGridModel;
 import com.niranisugar.android.R;
@@ -46,6 +47,7 @@ public class FeaturedAllAdapter extends RecyclerView.Adapter<FeaturedAllAdapter.
         ProductGridModel productGridModel = data_list.get(position);
         holder.tvProductName.setText(productGridModel.getProduct_name());
         holder.tvProductPrice.setText("\u20B9 " + String.format("%.2f",productGridModel.getProduct_price()));
+        Glide.with(context).load(productGridModel.getProduct_thumbnail()).into(holder.ivThumbnail);
 
 
     }

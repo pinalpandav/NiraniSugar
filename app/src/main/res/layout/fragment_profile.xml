@@ -184,6 +184,7 @@
 
 
                     <RadioGroup
+                        android:id="@+id/rgGender"
                         android:checkedButton="@id/rbMale"
                         android:layout_weight="1"
                         android:orientation="horizontal"

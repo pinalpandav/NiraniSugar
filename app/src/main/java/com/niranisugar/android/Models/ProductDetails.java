@@ -1,15 +1,62 @@
 package com.niranisugar.android.Models;
 
-public class ProductDetails {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
+public class ProductDetails implements Parcelable {
 
     int id;
     String sku,product_type,category_id,subcat_id,name,slug,photo,thumbnail,size,size_qty,size_price,color;
     double price;
     String orignal_price;
     String gst,tcs,prv_price,details,stock,policy,views;
+    int review;
+    double rating;
+
 
     public ProductDetails() {
     }
+
+    protected ProductDetails(Parcel in) {
+        id = in.readInt();
+        sku = in.readString();
+        product_type = in.readString();
+        category_id = in.readString();
+        subcat_id = in.readString();
+        name = in.readString();
+        slug = in.readString();
+        photo = in.readString();
+        thumbnail = in.readString();
+        size = in.readString();
+        size_qty = in.readString();
+        size_price = in.readString();
+        color = in.readString();
+        price = in.readDouble();
+        orignal_price = in.readString();
+        gst = in.readString();
+        tcs = in.readString();
+        prv_price = in.readString();
+        details = in.readString();
+        stock = in.readString();
+        policy = in.readString();
+        views = in.readString();
+        review = in.readInt();
+        rating = in.readDouble();
+    }
+
+    public static final Creator<ProductDetails> CREATOR = new Creator<ProductDetails>() {
+        @Override
+        public ProductDetails createFromParcel(Parcel in) {
+            return new ProductDetails(in);
+        }
+
+        @Override
+        public ProductDetails[] newArray(int size) {
+            return new ProductDetails[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -185,5 +232,54 @@ public class ProductDetails {
 
     public void setViews(String views) {
         this.views = views;
+    }
+
+    public int getReview() {
+        return review;
+    }
+
+    public void setReview(int review) {
+        this.review = review;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(sku);
+        parcel.writeString(product_type);
+        parcel.writeString(category_id);
+        parcel.writeString(subcat_id);
+        parcel.writeString(name);
+        parcel.writeString(slug);
+        parcel.writeString(photo);
+        parcel.writeString(thumbnail);
+        parcel.writeString(size);
+        parcel.writeString(size_qty);
+        parcel.writeString(size_price);
+        parcel.writeString(color);
+        parcel.writeDouble(price);
+        parcel.writeString(orignal_price);
+        parcel.writeString(gst);
+        parcel.writeString(tcs);
+        parcel.writeString(prv_price);
+        parcel.writeString(details);
+        parcel.writeString(stock);
+        parcel.writeString(policy);
+        parcel.writeString(views);
+        parcel.writeInt(review);
+        parcel.writeDouble(rating);
     }
 }
